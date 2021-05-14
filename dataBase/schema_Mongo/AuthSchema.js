@@ -28,4 +28,15 @@ const AuthService=new mongoose.Schema({
         type: String,
     }
 });
-module.exports={AuthService};
+
+const AuthServiceGoogle=new mongoose.Schema({
+    username:{
+        type:String,
+        unique:true,
+        required:true
+    },
+    name:{
+        type: String
+    }
+});
+module.exports={AuthService,AuthServiceGoogle};

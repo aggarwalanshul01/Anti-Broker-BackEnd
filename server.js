@@ -11,6 +11,15 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use('/signup_service',require('./Routes/Signup'));
 
+app.use(session({
+    resave: true,
+    saveUninitialized: true,
+    secret: 'skadh32iehb37iudhebiwqnhk92ueniedn',
+    cookie:{
+        httpOnly:true,
+    }
+}))
+
 mongoose.connect("mongodb://localhost:27017/Authentication",{
     useNewUrlParser:true,
     useUnifiedTopology:true,
@@ -19,24 +28,10 @@ mongoose.connect("mongodb://localhost:27017/Authentication",{
     console.log('connection success for mongodb');
 }).catch((err)=>{
     console.log("mongo not connected "+err);
-});
+})
 
-app.use(session({
-    resave: true,
-    saveUninitialized: true,
-    secret: 'skadh32iehb37iudhebiwqnhk92ueniedn'
-}));
 
-// const provider=new ServiceProvider({
-//     username:'gssfsssdasdfgserthj',
-//     name:'aggarwalanshul01',
-//     Age:'23',
-//     Phone:'9999999999',
-//     Gender:'male',
-//     Password:'aaaa',
-//     Description:'sadfsdgfhgjyrterea'
-// });
-// provider.save();
+
 
 app.listen(PORT,()=>{
     console.log("server started");
