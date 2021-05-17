@@ -1,0 +1,43 @@
+const route=require('express').Router();
+const {Store,StoreGoogle}=require('../../dataBase/models_Mongo/People/Store');
+
+
+route.post('/', async(req, res) => {
+    try{
+        //console.log(req);
+        //console.log("cccccccccccc");
+        const isPresent=await Store.find({username:req.body.username}).limit(1);
+        console.log("aaa",isPresent);
+        if(isPresent==''){
+            res.status(400).send('No UserName Exist');
+        }else{
+            console.log(isPresent);
+            console.log(req.body.password+" "+isPresent.Password);
+            if(isPresent[0].Password==req.body.password){
+                res.status(200).send(isPresent[0]);
+            }else{
+                res.status(400).send("Wrong Password")
+            }
+        }
+   }catch(err){
+        //console.log(err);
+        res.status(400).send('error occured');
+   } 
+});
+
+route.post('/google/', async(req, res) => {
+    //console.log("hello");
+    try{
+        const isPresent=await StoreGoogle.find({username:req.body.googleId}).limit(1);
+        //console.log(isPresent+" "+req.body.googleId);
+        if(isPresent==''){
+            res.status(400).send('No Account Exist');
+        }else{
+            res.status(200).send(isPresent[0]); 
+        }
+   }catch(err){
+        res.status(400).send('error occured');
+   }
+});
+
+module.exports=route;

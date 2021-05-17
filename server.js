@@ -1,7 +1,7 @@
 const express=require('express');
 //const ServiceProvider=require('./dataBase/models_Mongo/People/ServiceProvider');
 const app=express();
-const PORT=process.env.PORT || 4444;
+const PORT=process.env.PORT || 3001;
 const mongoose=require('mongoose');
 const session=require('express-session');
 cors = require("cors");
@@ -9,7 +9,13 @@ app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use('/signup_service',require('./Routes/Signup'));
+
+app.use('/signup_service',require('./Routes/Signup/SignupService'));
+app.use('/signup_store',require('./Routes/Signup/SignupStore'));
+app.use('/signup_manager',require('./Routes/Signup/SignupManager'));
+app.use('/login_service',require('./Routes/Login/LoginService'));
+app.use('/login_store',require('./Routes/Login/LoginStore'));
+app.use('/login_manager',require('./Routes/Login/LoginManager'));
 
 app.use(session({
     resave: true,

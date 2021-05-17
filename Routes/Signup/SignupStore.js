@@ -1,12 +1,13 @@
 const route=require('express').Router();
-const {ServiceProvider,ServiceProviderGoogle}=require('../dataBase/models_Mongo/People/ServiceProvider');
+const {Store,StoreGoogle}=require('../../dataBase/models_Mongo/People/Store');
 
 route.post('/',async(req,res)=>{
    // console.log(req.session);
+   //console.log("ccccc");
     try{
-        const isPresent=await ServiceProvider.find({username:req.body.username}).limit(1);
+        const isPresent=await Store.find({username:req.body.username}).limit(1);
         if(isPresent==''){
-            const provider=new ServiceProvider({
+            const provider=new Store({
                 username:req.body.username,
                 name:req.body.name,
                 Age:req.body.age,
@@ -17,7 +18,7 @@ route.post('/',async(req,res)=>{
             });
             let result=await provider.save();
             //console.log("result = ",result);
-            res.status(200).send('done');
+            res.status(200).send(result);
         }else{
             res.status(403).send('Username Already Exists');
         }
@@ -28,17 +29,17 @@ route.post('/',async(req,res)=>{
     
 });
 route.post('/google/',async(req,res)=>{
-    console.log(req.body);
+    //console.log(req.body);
     try{
-        const isPresent=await ServiceProviderGoogle.find({username:req.body.username}).limit(1);
+        const isPresent=await StoreGoogle.find({username:req.body.googleId}).limit(1);
         if(isPresent==''){
-            const provider=new ServiceProviderGoogle({
+            const provider=new StoreGoogle({
                 username:req.body.googleId,
                 name:req.body.name
             });
             let result=await provider.save();
             //console.log("result = ",result);
-            res.status(200).send('done');
+            res.status(200).send(result);
         }else{
             res.status(403).send('Already Exists');
         }
