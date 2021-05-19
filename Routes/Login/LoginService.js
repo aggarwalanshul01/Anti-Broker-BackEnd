@@ -9,14 +9,14 @@ route.post('/', async(req, res) => {
         const isPresent=await ServiceProvider.find({username:req.body.username}).limit(1);
         //console.log(isPresent);
         if(isPresent==''){
-            res.status(400).send('No UserName Exist');
+            res.status(200).send('No UserName Exist');
         }else{
             //console.log(isPresent);
             //console.log(req.body.password+" "+isPresent.Password);
             if(isPresent[0].Password==req.body.password){
                 res.status(200).send(isPresent[0]);
             }else{
-                res.status(400).send("Wrong Password")
+                res.status(200).send("Wrong Password");
             }
         }
    }catch(err){
@@ -31,7 +31,7 @@ route.post('/google/', async(req, res) => {
         const isPresent=await ServiceProviderGoogle.find({username:req.body.googleId}).limit(1);
         //console.log(isPresent+" "+req.body.googleId);
         if(isPresent==''){
-            res.status(400).send('No Account Exist');
+            res.status(200).send('Please Register Yourself Via Signup');
         }else{
             res.status(200).send(isPresent[0]); 
         }

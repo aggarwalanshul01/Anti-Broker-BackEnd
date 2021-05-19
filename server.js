@@ -36,15 +36,6 @@ mongoose.connect("mongodb://localhost:27017/Authentication",{
     console.log("mongo not connected "+err);
 })
 
-
-
-
 app.listen(PORT,()=>{
     console.log("server started");
 })
-// app.get('/',(req,res)=>{
-//     res.send('hello');
-// })
-// app.get('/abc',(req,res)=>{
-//     res.send('hello');
-// })

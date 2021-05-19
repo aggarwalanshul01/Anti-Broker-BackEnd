@@ -20,7 +20,7 @@ route.post('/',async(req,res)=>{
             //console.log("result = ",result);
             res.status(200).send(result);
         }else{
-            res.status(403).send('Username Already Exists');
+            res.status(200).send('Username Already Exists');
         }
    }catch(err){
         console.log(err);
@@ -41,7 +41,7 @@ route.post('/google/',async(req,res)=>{
             //console.log("result = ",result);
             res.status(200).send(result);
         }else{
-            res.status(403).send('Already Exists');
+            res.status(200).send('You Are Already Registered');
         }
    }catch(err){
         console.log(err);
