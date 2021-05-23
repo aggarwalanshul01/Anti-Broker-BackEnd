@@ -16,6 +16,7 @@ app.use('/signup_manager',require('./Routes/Signup/SignupManager'));
 app.use('/login_service',require('./Routes/Login/LoginService'));
 app.use('/login_store',require('./Routes/Login/LoginStore'));
 app.use('/login_manager',require('./Routes/Login/LoginManager'));
+app.use('/service',require('./Routes/ServiceProvider'));
 
 app.use(session({
     resave: true,
@@ -29,7 +30,8 @@ app.use(session({
 mongoose.connect("mongodb://localhost:27017/Authentication",{
     useNewUrlParser:true,
     useUnifiedTopology:true,
-    useCreateIndex:true
+    useCreateIndex:true,
+    useFindAndModify:false
 }).then(()=>{
     console.log('connection success for mongodb');
 }).catch((err)=>{

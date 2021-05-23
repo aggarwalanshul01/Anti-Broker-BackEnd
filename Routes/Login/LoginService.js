@@ -5,7 +5,7 @@ const {ServiceProvider,ServiceProviderGoogle}=require('../../dataBase/models_Mon
 route.post('/', async(req, res) => {
     try{
         //console.log(req);
-        console.log("cccccccccccc");
+        //console.log("cccccccccccc");
         const isPresent=await ServiceProvider.find({username:req.body.username}).limit(1);
         //console.log(isPresent);
         if(isPresent==''){
