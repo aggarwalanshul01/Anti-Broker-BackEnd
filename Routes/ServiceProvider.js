@@ -36,7 +36,7 @@ route.post('/update',async(req,res)=>{
    } 
 })
 route.post('/updateG',async(req,res)=>{
-    console.log(req.body);
+    //console.log(req.body);
     try{
         const isPresent=await ServiceProviderGoogle.find({username:req.body.username}).limit(1);
         
