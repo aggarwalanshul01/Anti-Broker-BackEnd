@@ -12,7 +12,7 @@ const Service_Work=new mongoose.Schema({
     }
 });
 
-const Service_Work_Google=new mongoose.Schema({
+const Service_Work_Google = new mongoose.Schema({
     username:{
         type:String,
         unique:true,
@@ -39,4 +39,35 @@ const Service_Work_Google=new mongoose.Schema({
         type: String,
     }
 });
-module.exports={Service_Work,Service_Work_Google};
+
+const Service_Work_Booked = new mongoose.Schema({
+    username:{
+        type:String,
+        required:true
+    },
+    DateBooked:{
+        type:Date,
+        default:Date.now(),
+    },
+    StoreName:{
+        type:String,
+        required:true
+    },
+    MachineName:{
+        type:String
+    },
+    PhoneStore:{
+        type:Number,
+        minLength:10,
+        maxLength:10
+    },
+    Address:{
+        type:String
+    },
+    Problem:{
+        type:String
+    }
+    
+});
+
+module.exports={Service_Work,Service_Work_Google,Service_Work_Booked};

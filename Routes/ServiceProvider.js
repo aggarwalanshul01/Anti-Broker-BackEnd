@@ -1,5 +1,5 @@
 const route=require('express').Router();
-const {ServiceProvider,ServiceProviderGoogle,ServiceWork,ServiceWorkG}=require('../dataBase/models_Mongo/People/ServiceProvider');
+const {ServiceProvider,ServiceProviderGoogle,ServiceWork,ServiceWorkG,Service_Work_Book}=require('../dataBase/models_Mongo/People/ServiceProvider');
 
 route.post('/update',async(req,res)=>{
     console.log(req.body);
@@ -72,6 +72,22 @@ route.post('/updateG',async(req,res)=>{
    }catch(err){
         res.status(400).send('error occured');
    } 
+})
+
+route.post('/work_details',async(req,res)=>{
+    const work=new Service_Work_Book({
+        username:req.body.username,
+        StoreName:'sf',
+        MachineName:'kj',
+        PhoneStore:8585913110,
+        Address:'cvh',
+        Problem:'kjhgfdsdfghj',
+        DateBooked:new Date().getTime()/1000
+    })
+    const result=await work.save();
+    console.log(result.DateBooked.getTime());
+    console.log(result);
+    res.send('eee');
 })
 
 module.exports=route;

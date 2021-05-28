@@ -53,18 +53,10 @@ route.post('/google/', async(req, res) => {
         if(isPresent==''){
             res.status(200).send('Please Register Yourself Via Signup');
         }else{
-            
-            //console.log(req.body);
             const spe=await ServiceWorkG.find({username:req.body.googleId}).limit(1);
-                //console.log(spe);
                 if(spe[0]==undefined){
-                    //console.log("*****");
                     res.status(200).send(isPresent[0]);
                 }else{
-                    //pp.specialization=spe[0].profession;
-                    //pp={...pp,[specialization]:[spe[0].profession]};
-                    //pp.specialization='kjhgf';
-                    //console.log("--- ",pp);
                      let yt={};
                      yt.username=isPresent[0].username;
                      yt.name=isPresent[0].name;
@@ -72,10 +64,7 @@ route.post('/google/', async(req, res) => {
                      yt.Phone=spe[0].Phone;yt.Gender=spe[0].Gender;//yt.Password=spe[0].Password;
                      yt.Description=spe[0].Description;
                      yt.specialization=spe[0].profession;
-                    //console.log(yt);
-                    //console.log(isPresent[0]);
-                    //console.log(isPresent[0]);
-                    //console.log(spe[0]);
+                    
                     res.status(200).send(yt);
                 }
         }
