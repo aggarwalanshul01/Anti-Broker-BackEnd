@@ -47,7 +47,7 @@ const Service_Work_Booked = new mongoose.Schema({
     },
     DateBooked:{
         type:Date,
-        default:Date.now(),
+        default:Date(),
     },
     StoreName:{
         type:String,
@@ -66,7 +66,12 @@ const Service_Work_Booked = new mongoose.Schema({
     },
     Problem:{
         type:String
-    }
+    },
+    IsDone:{
+        type:Number,
+        default:0
+    },
+    
     
 });
 
