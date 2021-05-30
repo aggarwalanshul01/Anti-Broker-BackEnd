@@ -77,19 +77,24 @@ route.post('/updateG',async(req,res)=>{
 route.post('/work_details',async(req,res)=>{
     let complaints = await Service_Work_Book.find({username:req.body.username});
     res.send(complaints);
+    
+    
 })
 
 module.exports=route;
-
+//let complaints = await Service_Work_Book.find();
+    //console.log('hello');
 // const work=new Service_Work_Book({
-    //     username:req.body.username,
-    //     StoreName:'sf',
-    //     MachineName:'kj',
-    //     PhoneStore:8585913110,
-    //     Address:'cvh',
-    //     Problem:'kjhgfdsdfghj',
-    //     //DateBooked:new Date().getTime()/1000
-    // })
-    // const result=await work.save();
-    // console.log(result.DateBooked.getMinutes());
-    // console.log(result);
+//     username:req.body.username,
+//     StoreName:'sf',
+//     MachineName:'kj',
+//     PhoneStore:8585913110,
+//     Address:'cvh',
+//     Problem:'kjhgfdsdfghj',
+//     ComplaintNo:100000000+complaints.length
+//     //DateBooked:new Date().getTime()/1000
+// })
+// const result=await work.save();
+// // console.log(result.DateBooked.getMinutes());
+// console.log(result);
+// res.send('aaa');

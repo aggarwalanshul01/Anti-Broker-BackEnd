@@ -71,7 +71,10 @@ const Service_Work_Booked = new mongoose.Schema({
         type:Number,
         default:0
     },
-    
+    ComplaintNo:{
+        type:String,
+        required:true
+    }
     
 });
 
