@@ -8,7 +8,7 @@ route.post('/', async(req, res) => {
         //console.log("cccccccccccc");
         const isPresent=await ServiceProvider.find({username:req.body.username}).limit(1);
         //console.log(isPresent);
-        if(isPresent==''){
+        if(isPresent.length==0){
             res.status(200).send('No UserName Exist');
         }else{
             //console.log(isPresent);
@@ -17,7 +17,7 @@ route.post('/', async(req, res) => {
                 let pp=isPresent[0];
                 const spe=await ServiceWork.find({username:req.body.username}).limit(1);
                 console.log(spe);
-                if(spe[0]==''){
+                if(spe.length==0){
                     res.status(200).send(isPresent[0]);
                 }else{
                     //pp.specialization=spe[0].profession;
@@ -50,7 +50,7 @@ route.post('/google/', async(req, res) => {
     try{
         const isPresent=await ServiceProviderGoogle.find({username:req.body.googleId}).limit(1);
         //console.log(isPresent+" "+req.body.googleId);
-        if(isPresent==''){
+        if(isPresent.length==0){
             res.status(200).send('Please Register Yourself Via Signup');
         }else{
             const spe=await ServiceWorkG.find({username:req.body.googleId}).limit(1);

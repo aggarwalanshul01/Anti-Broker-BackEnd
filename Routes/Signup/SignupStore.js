@@ -5,16 +5,15 @@ route.post('/',async(req,res)=>{
    // console.log(req.session);
    //console.log("ccccc");
     try{
+       // console.log("hello");
         const isPresent=await Store.find({username:req.body.username}).limit(1);
         if(isPresent==''){
             const provider=new Store({
                 username:req.body.username,
                 name:req.body.name,
-                Age:req.body.age,
                 Phone:req.body.phone,
-                Gender:req.body.gender,
                 Password:req.body.password,
-                Description:req.body.description
+                Address:req.body.description
             });
             let result=await provider.save();
             //console.log("result = ",result);

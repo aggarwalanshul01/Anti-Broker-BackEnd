@@ -17,6 +17,7 @@ app.use('/login_service',require('./Routes/Login/LoginService'));
 app.use('/login_store',require('./Routes/Login/LoginStore'));
 app.use('/login_manager',require('./Routes/Login/LoginManager'));
 app.use('/service',require('./Routes/ServiceProvider'));
+app.use('/store',require('./Routes/Store'));
 
 app.use(session({
     resave: true,
