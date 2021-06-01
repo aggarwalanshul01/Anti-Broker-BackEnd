@@ -1,5 +1,6 @@
 const route=require('express').Router();
 const {Store,StoreGoogle,StoreGoogleW}=require('../dataBase/models_Mongo/People/Store');
+const {ServiceProvider,ServiceProviderGoogle,ServiceWork,ServiceWorkG,Service_Work_Book}=require('../dataBase/models_Mongo/People/ServiceProvider');
 
 route.post('/update',async(req,res)=>{
     console.log(req.body);
@@ -54,7 +55,49 @@ route.post('/updateG',async(req,res)=>{
         res.status(400).send('error occured');
    } 
 })
-
+route.get('/getAllProviders',async(req,res)=>{
+    try{
+        let result=[];
+        let providerNormal=await ServiceProvider.find({});
+        let providerNormalWork=await ServiceWork.find({});
+        let providerG=await ServiceProviderGoogle.find({});
+        let providerGWork=await ServiceWorkG.find({});
+        for(let i=0;i<providerNormal.length;i++){
+            let username=providerNormal[i].username;
+            for(let j=0;j<providerNormalWork.length;j++){
+                if(providerNormalWork[j].username==username){
+                    let curr={
+                        username:providerNormalWork[j].username,
+                        profession:providerNormalWork[j].profession,
+                        name:providerNormal[i].name,
+                        Phone:providerNormal[i].Phone,
+                        Description:providerNormal[i].Description
+                    }
+                    result.push(curr);
+                    break;
+                }
+            }
+        }for(let i=0;i<providerG.length;i++){
+            let username=providerG[i].username;
+            for(let j=0;j<providerGWork.length;j++){
+                if(providerGWork[j].username==username){
+                    let curr={
+                        username:providerGWork[j].username,
+                        profession:providerGWork[j].profession,
+                        name:providerG[i].name,
+                        Phone:providerGWork[i].Phone,
+                        Description:providerGWork[i].Description
+                    }
+                    result.push(curr);
+                    break;
+                }
+            }
+        }res.send(result);
+    }catch(err){
+        console.log(err);
+        res.send('error occured');
+    }
+})
 
 
 module.exports=route;
