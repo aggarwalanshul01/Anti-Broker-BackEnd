@@ -46,8 +46,7 @@ const Service_Work_Booked = new mongoose.Schema({
         required:true
     },
     DateBooked:{
-        type:Date,
-        default:Date(),
+        type:String
     },
     StoreName:{
         type:String,

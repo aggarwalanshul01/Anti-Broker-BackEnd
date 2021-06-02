@@ -98,22 +98,28 @@ route.get('/getAllProviders',async(req,res)=>{
         res.send('error occured');
     }
 })
+route.post('/makeComplaint',async(req,res)=>{
+    //console.log('hello');
+    //console.log(req.body);
+    try{
+        let complaints = await Service_Work_Book.find();
+        const work=new Service_Work_Book({
+        username:req.body.username,
+        StoreName:req.body.StoreName,
+        MachineName:req.body.MachineName,
+        PhoneStore:req.body.PhoneStore,
+        Address:req.body.Address,
+        Problem:req.body.Problem,
+        ComplaintNo:100000000+complaints.length,
+        DateBooked:req.body.DateBooked
+        })
+        const result=await work.save();
+
+        res.status(200).send({CompNo:result.ComplaintNo,MSRNo:result._id});
+    }catch(err){
+        res.status(404).sendStatus(err);
+    }
+})
 
 
 module.exports=route;
-//let complaints = await Service_Work_Book.find();
-    //console.log('hello');
-// const work=new Service_Work_Book({
-//     username:req.body.username,
-//     StoreName:'sf',
-//     MachineName:'kj',
-//     PhoneStore:8585913110,
-//     Address:'cvh',
-//     Problem:'kjhgfdsdfghj',
-//     ComplaintNo:100000000+complaints.length
-//     //DateBooked:new Date().getTime()/1000
-// })
-// const result=await work.save();
-// // console.log(result.DateBooked.getMinutes());
-// console.log(result);
-// res.send('aaa');
