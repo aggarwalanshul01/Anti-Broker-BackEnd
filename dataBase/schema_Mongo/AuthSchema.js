@@ -6,6 +6,9 @@ const AuthService=new mongoose.Schema({
         unique:true,
         required:true
     },
+    email:{
+        type:String
+    },
     name:{
         type: String
     },

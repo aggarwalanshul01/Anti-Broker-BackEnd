@@ -7,8 +7,8 @@ route.post('/', async(req, res) => {
         //console.log(req);
         //console.log("cccccccccccc");
         const isPresent=await Store.find({username:req.body.username}).limit(1);
-        console.log("aaa",isPresent);
-        if(isPresent==''){
+        //console.log("aaa",isPresent[0]);
+        if(isPresent.length==0){
             res.status(200).send('No UserName Exist');
         }else{
            // console.log("aaaaaaaa ",isPresent);
@@ -42,7 +42,7 @@ route.post('/google/', async(req, res) => {
                      yt.name=isPresent[0].name;
                      yt.Phone=spe[0].Phone;//yt.Password=spe[0].Password;
                      yt.Address=spe[0].Address;
-                    
+                    yt.email=spe[0].email;
                     res.status(200).send(yt);
                 } 
         }

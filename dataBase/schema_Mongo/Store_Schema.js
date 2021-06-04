@@ -6,6 +6,9 @@ const AuthService=new mongoose.Schema({
         unique:true,
         required:true
     },
+    email:{
+        type:String
+    },
     name:{
         type: String
     },
@@ -39,6 +42,9 @@ const Store_Work_Google = new mongoose.Schema({
         type:String,
         unique:true,
         required:true
+    },
+    email:{
+        type:String
     },
     Phone:{
         type:Number,

@@ -1,10 +1,14 @@
 const route=require('express').Router();
 const {Store,StoreGoogle,StoreGoogleW}=require('../dataBase/models_Mongo/People/Store');
 const {ServiceProvider,ServiceProviderGoogle,ServiceWork,ServiceWorkG,Service_Work_Book}=require('../dataBase/models_Mongo/People/ServiceProvider');
+const validator  = require('validator');
 
 route.post('/update',async(req,res)=>{
-    console.log(req.body);
+    //console.log(req.body);
     try{
+        if(!validator.isEmail(req.body.email)){
+            res.status(200).send('Email is not valid');
+        }else{
         const isPresent=await Store.find({username:req.body.username}).limit(1);
         //console.log(isPresent);
         if(isPresent.length==0){
@@ -13,12 +17,13 @@ route.post('/update',async(req,res)=>{
             const updateNor=await Store.updateOne({_id:[isPresent[0]._id]},{
                 name:req.body.name,
                 Phone:req.body.phone,
-                Address:req.body.description
+                Address:req.body.description,
+                email:req.body.email
             });
-            console.log("11 ",updateNor);
+            //console.log("11 ",updateNor);
             res.status(200).send(req.body);
             
-        }
+        }}
    }catch(err){
         res.status(400).send('error occured');
    } 
@@ -26,6 +31,10 @@ route.post('/update',async(req,res)=>{
 route.post('/updateG',async(req,res)=>{
     //console.log(req.body);
     try{
+        if(!validator.isEmail(req.body.email)){
+            res.status(200).send('Email is not valid');
+        }else{
+
         const isPresent=await StoreGoogle.find({username:req.body.username}).limit(1);
         
         if(isPresent.length==0){
@@ -39,18 +48,20 @@ route.post('/updateG',async(req,res)=>{
                 const provider=new StoreGoogleW({
                     username:req.body.username,
                     Phone:req.body.phone,
-                    Address:req.body.description
+                    Address:req.body.description,
+                    email:req.body.email
                 });
                 let result=await provider.save();
                 res.status(200).send(req.body);
             }else{
                 const provider=await StoreGoogleW.updateOne({username:req.body.username},{
                     Phone:req.body.phone,
-                    Address:req.body.description
+                    Address:req.body.description,
+                    email:req.body.email
                 });
                 res.status(200).send(req.body);
             }
-        }
+        }}
    }catch(err){
         res.status(400).send('error occured');
    } 
@@ -105,6 +116,7 @@ route.post('/makeComplaint',async(req,res)=>{
         let complaints = await Service_Work_Book.find();
         const work=new Service_Work_Book({
         username:req.body.username,
+        usernameStore:req.body.usernameStore,
         StoreName:req.body.StoreName,
         MachineName:req.body.MachineName,
         PhoneStore:req.body.PhoneStore,

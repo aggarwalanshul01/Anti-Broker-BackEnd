@@ -18,6 +18,7 @@ const Service_Work_Google = new mongoose.Schema({
         unique:true,
         required:true
     },
+    email:String,
     profession:{
         type:String,
         required:true
@@ -44,6 +45,9 @@ const Service_Work_Booked = new mongoose.Schema({
     username:{
         type:String,
         required:true
+    },
+    usernameStore:{
+        type:String
     },
     DateBooked:{
         type:String

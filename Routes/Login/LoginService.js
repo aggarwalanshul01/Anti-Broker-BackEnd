@@ -31,6 +31,7 @@ route.post('/', async(req, res) => {
                     yt.Phone=pp.Phone;yt.Gender=pp.Gender;yt.Password=pp.Password;
                     yt.Description=pp.Description;
                     yt.specialization=spe[0].profession;
+                    yt.email=pp.email;
                     //console.log(yt);
                     //console.log(isPresent[0]);
                     res.status(200).send(yt);
@@ -64,7 +65,7 @@ route.post('/google/', async(req, res) => {
                      yt.Phone=spe[0].Phone;yt.Gender=spe[0].Gender;//yt.Password=spe[0].Password;
                      yt.Description=spe[0].Description;
                      yt.specialization=spe[0].profession;
-                    
+                    yt.email=spe[0].email;
                     res.status(200).send(yt);
                 }
         }

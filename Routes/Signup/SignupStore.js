@@ -1,10 +1,14 @@
 const route=require('express').Router();
 const {Store,StoreGoogle}=require('../../dataBase/models_Mongo/People/Store');
+const validator  = require('validator');
 
 route.post('/',async(req,res)=>{
    // console.log(req.session);
    //console.log("ccccc");
     try{
+        if(!validator.isEmail(req.body.email)){
+            res.status(200).send('Email is not valid');
+        }else{
        // console.log("hello");
         const isPresent=await Store.find({username:req.body.username}).limit(1);
         if(isPresent==''){
@@ -13,14 +17,15 @@ route.post('/',async(req,res)=>{
                 name:req.body.name,
                 Phone:req.body.phone,
                 Password:req.body.password,
-                Address:req.body.description
+                Address:req.body.description,
+                email:req.body.email
             });
             let result=await provider.save();
             //console.log("result = ",result);
             res.status(200).send(result);
         }else{
             res.status(200).send('Username Already Exists');
-        }
+        }}
    }catch(err){
         console.log(err);
         res.status(400).send('error occured');
