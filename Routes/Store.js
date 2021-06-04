@@ -2,7 +2,15 @@ const route=require('express').Router();
 const {Store,StoreGoogle,StoreGoogleW}=require('../dataBase/models_Mongo/People/Store');
 const {ServiceProvider,ServiceProviderGoogle,ServiceWork,ServiceWorkG,Service_Work_Book}=require('../dataBase/models_Mongo/People/ServiceProvider');
 const validator  = require('validator');
+var nodemailer = require('nodemailer');
 
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'antibrokerofficial@gmail.com',
+    pass: 'ajayagg81'
+  }
+});
 route.post('/update',async(req,res)=>{
     //console.log(req.body);
     try{
@@ -112,6 +120,7 @@ route.get('/getAllProviders',async(req,res)=>{
 route.post('/makeComplaint',async(req,res)=>{
     //console.log('hello');
     //console.log(req.body);
+    
     try{
         let complaints = await Service_Work_Book.find();
         const work=new Service_Work_Book({
@@ -125,7 +134,53 @@ route.post('/makeComplaint',async(req,res)=>{
         ComplaintNo:100000000+complaints.length,
         DateBooked:req.body.DateBooked
         })
+
         const result=await work.save();
+
+        let isp = await ServiceProvider.find({username:req.body.username}).limit(1);
+        if(isp.length==0){
+            //console.log(ispp[0]);
+            let ispp = await ServiceWorkG.find({username:req.body.username}).limit(1);
+            var mailOptions = {
+                from: 'antibrokerofficial@gmail.com',
+                to: ispp[0].email,
+                subject: `Anti Broker Complaint No : ${result.ComplaintNo}`,
+                
+                html: `<div><b>Store Name </b><p>${result.StoreName}</p></div>
+                <div><b>Address </b><p>${result.Address}</p></div>
+                <div><b>Store PhoneNo </b><p>${result.PhoneStore}</p></div>
+                <div><b>Equipment</b><p>${result.MachineName}</p></div>
+                <div><b>Problem Faced</b><p>${result.Problem}</p></div>`        
+            };
+            transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                  console.log(error);
+                } else {
+                //  console.log('Email sent: ' + info.response);
+                }
+              });
+        }else{
+            //console.log(isp[0]);
+            var mailOptions = {
+                from: 'antibrokerofficial@gmail.com',
+                to: isp[0].email,
+                subject: 'Sending Email using Node.js',
+                html: `<div><b>Store Name </b><p>${result.StoreName}</p></div>
+                <div><b>Address </b><p>${result.Address}</p></div>
+                <div><b>Store PhoneNo </b><p>${result.PhoneStore}</p></div>
+                <div><b>Equipment</b><p>${result.MachineName}</p></div>
+                <div><b>Problem Faced</b><p>${result.Problem}</p></div>`         
+            };
+            transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                  console.log(error);
+                } else {
+                 // console.log('Email sent: ' + info.response);
+                }
+              });
+        }
+        
+
 
         res.status(200).send({CompNo:result.ComplaintNo,MSRNo:result._id});
     }catch(err){
