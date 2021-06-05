@@ -1,14 +1,16 @@
 const route=require('express').Router();
 const {Store,StoreGoogle,StoreGoogleW}=require('../dataBase/models_Mongo/People/Store');
 const {ServiceProvider,ServiceProviderGoogle,ServiceWork,ServiceWorkG,Service_Work_Book}=require('../dataBase/models_Mongo/People/ServiceProvider');
+const pass=require('../per');
 const validator  = require('validator');
 var nodemailer = require('nodemailer');
+
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'antibrokerofficial@gmail.com',
-    pass: 'ajayagg81'
+    pass: pass
   }
 });
 route.post('/update',async(req,res)=>{
