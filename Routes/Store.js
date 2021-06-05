@@ -121,7 +121,7 @@ route.get('/getAllProviders',async(req,res)=>{
 })
 route.post('/makeComplaint',async(req,res)=>{
     //console.log('hello');
-    //console.log(req.body);
+    console.log(req.body);
     
     try{
         let complaints = await Service_Work_Book.find();
@@ -185,6 +185,14 @@ route.post('/makeComplaint',async(req,res)=>{
 
 
         res.status(200).send({CompNo:result.ComplaintNo,MSRNo:result._id});
+    }catch(err){
+        res.status(404).sendStatus(err);
+    }
+})
+route.post('/comp_store',async(req,res)=>{
+    try{
+        let book = await Service_Work_Book.find({usernameStore:req.body.username});
+        res.status(200).send(book);
     }catch(err){
         res.status(404).sendStatus(err);
     }
