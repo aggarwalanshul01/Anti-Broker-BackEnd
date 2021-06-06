@@ -77,8 +77,19 @@ const Service_Work_Booked = new mongoose.Schema({
     ComplaintNo:{
         type:String,
         required:true
+    },
+    IsFinal:{
+        type:String
+    },
+    NameEngi:{
+        type:String,
+        default:''
+    },PhoneEngi:{
+        type:Number,
+        default:'0'
     }
-    
 });
+
+
 
 module.exports={Service_Work,Service_Work_Google,Service_Work_Booked};

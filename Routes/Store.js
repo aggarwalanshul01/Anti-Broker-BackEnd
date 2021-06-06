@@ -134,7 +134,8 @@ route.post('/makeComplaint',async(req,res)=>{
         Address:req.body.Address,
         Problem:req.body.Problem,
         ComplaintNo:100000000+complaints.length,
-        DateBooked:req.body.DateBooked
+        DateBooked:req.body.DateBooked,
+        IsFinal:0
         })
 
         const result=await work.save();
@@ -166,7 +167,7 @@ route.post('/makeComplaint',async(req,res)=>{
             var mailOptions = {
                 from: 'antibrokerofficial@gmail.com',
                 to: isp[0].email,
-                subject: 'Sending Email using Node.js',
+                subject: `Anti Broker Complaint No : ${result.ComplaintNo}`,
                 html: `<div><b>Store Name </b><p>${result.StoreName}</p></div>
                 <div><b>Address </b><p>${result.Address}</p></div>
                 <div><b>Store PhoneNo </b><p>${result.PhoneStore}</p></div>
