@@ -1,6 +1,7 @@
 const route=require('express').Router();
 const {Manager,ManagerGoogle,ManagerGoogleWork}=require('../dataBase/models_Mongo/People/Manager');
-const {Store,StoreGoogle,StoreGoogleW}=require('../dataBase/models_Mongo/People/Store');
+const {Service_Work_Book} = require('../dataBase/models_Mongo/People/ServiceProvider');
+
 const validator  = require('validator');
 var nodemailer = require('nodemailer');
 const pass=require('../per/per');
@@ -79,6 +80,11 @@ route.post('/updateG',async(req,res)=>{
    }catch(err){
         res.status(400).send('error occured');
    } 
+})
+route.get('/allComp',async(req,res)=>{
+    let comp=await Service_Work_Book.find();
+
+    res.send(comp);
 })
 
 
